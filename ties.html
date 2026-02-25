@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOID | Ties</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* --- GLOBAL --- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background:#fff;
+    color:#000;
+    line-height:1.6;
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+}
+
+/* --- HEADER --- */
+header{
+    background:#000;
+    padding:1rem 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-family:'Poppins', sans-serif;
+    font-size:1.6rem;
+    font-weight:700;
+    letter-spacing:4px;
+    color:#fff;
+    text-decoration:none;
+}
+
+/* NAV */
+nav{
+    display:flex;
+    gap:1.5rem;
+    align-items:center;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:0.8rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    position:relative;
+    padding-bottom:4px;
+}
+
+nav a::after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:1px;
+    bottom:0;
+    left:0;
+    background:#fff;
+    transition:0.3s ease;
+}
+
+nav a:hover::after,
+nav a.active::after{
+    width:100%;
+}
+
+.cart-icon img{
+    width:20px;
+}
+
+/* HAMBURGER */
+.hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
+
+.hamburger span{
+    width:25px;
+    height:2px;
+    background:#fff;
+    transition:0.3s ease;
+}
+
+.hamburger.active span:nth-child(1){
+    transform:rotate(45deg) translate(5px,5px);
+}
+.hamburger.active span:nth-child(2){
+    opacity:0;
+}
+.hamburger.active span:nth-child(3){
+    transform:rotate(-45deg) translate(5px,-5px);
+}
+
+/* --- PRODUCT SECTION --- */
+.product-rect{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4rem;
+    padding:6rem 8%;
+    min-height:90vh;
+    flex-wrap:wrap;
+}
+
+.photo-square{
+    width:100%;
+    max-width:400px;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    opacity:0;
+    transform:translateX(-120px);
+    transition:opacity 0.8s ease, transform 0.8s cubic-bezier(.17,.67,.35,1);
+}
+
+.photo-square.active{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.photo-square:hover{
+    transform:scale(1.05);
+}
+
+.product-info{
+    max-width:500px;
+    width:100%;
+    opacity:0;
+    transform:translateX(120px);
+    transition:opacity 0.8s ease, transform 0.8s cubic-bezier(.17,.67,.35,1);
+}
+
+.product-info.active{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.product-info h2{
+    font-family:'Poppins', sans-serif;
+    font-size:2.4rem;
+    font-weight:600;
+    margin-bottom:1rem;
+}
+
+.product-info p.price{
+    font-size:1.2rem;
+    margin-bottom:2rem;
+}
+
+.btn-row{
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+}
+
+.btn-action{
+    padding:0.9rem 1.8rem;
+    text-decoration:none;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:0.8rem;
+    transition:0.3s ease;
+    border:1px solid;
+}
+
+/* THEMES */
+.rect-white{background:#fff;color:#000;}
+.rect-white .btn-action{
+    background:#000;color:#fff;border-color:#000;
+}
+.rect-white .btn-action:hover{
+    background:#fff;color:#000;
+}
+
+.rect-lightgray{background:#e6e6e6;color:#000;}
+.rect-lightgray .btn-action{
+    background:#000;color:#fff;border-color:#000;
+}
+.rect-lightgray .btn-action:hover{
+    background:#e6e6e6;color:#000;
+}
+
+.rect-gray{background:#8c8c8c;color:#fff;}
+.rect-gray .btn-action{
+    background:#fff;color:#000;border-color:#fff;
+}
+.rect-gray .btn-action:hover{
+    background:transparent;color:#fff;
+}
+
+/* FOOTER */
+footer{
+    background:#000;
+    color:#fff;
+    text-align:center;
+    padding:2.5rem 1rem;
+    border-top:1px solid #333;
+}
+
+footer p{
+    font-size:0.8rem;
+    opacity:0.6;
+    letter-spacing:1px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    nav{
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#000;
+        flex-direction:column;
+        align-items:center;
+        gap:1.5rem;
+        padding:2rem 0;
+        transform:translateY(-120%);
+        transition:0.4s ease;
+    }
+
+    nav.active{
+        transform:translateY(0);
+    }
+
+    .hamburger{
+        display:flex;
+    }
+
+    .product-rect{
+        flex-direction:column;
+        padding:4rem 5%;
+        gap:2rem;
+        text-align:center;
+    }
+
+    .photo-square{
+        transform:translateY(60px);
+    }
+
+    .photo-square.active{
+        transform:translateY(0);
+    }
+
+    .product-info{
+        transform:translateY(60px);
+    }
+
+    .product-info.active{
+        transform:translateY(0);
+    }
+
+    .product-info h2{
+        font-size:1.8rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">VOID</a>
+
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="ties.html" class="active">Ties</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-icon">
+            <img src="images/icons8-shopping-cart-30.png" alt="Cart">
+        </a>
+    </nav>
+
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</header>
+
+<main>
+
+<section class="product-rect rect-white">
+    <img src="images/tie.png" class="photo-square">
+    <div class="product-info">
+        <h2>Custom Made Metal Ring Tie</h2>
+        <p class="price">$35.00</p>
+        <div class="btn-row">
+            <a href="#" class="btn-action">Buy Now</a>
+            <a href="#" class="btn-action">Add to Cart</a>
+        </div>
+    </div>
+</section>
+
+<section class="product-rect rect-lightgray">
+    <img src="images/tie2.png" class="photo-square">
+    <div class="product-info">
+        <h2>Cybersigilism Painted Black Tie</h2>
+        <p class="price">$30.00</p>
+        <div class="btn-row">
+            <a href="#" class="btn-action">Buy Now</a>
+            <a href="#" class="btn-action">Add to Cart</a>
+        </div>
+    </div>
+</section>
+
+<section class="product-rect rect-gray">
+    <img src="images/tie3.png" class="photo-square">
+    <div class="product-info">
+        <h2>Custom Spidey Black Tie</h2>
+        <p class="price">$35.00</p>
+        <div class="btn-row">
+            <a href="#" class="btn-action">Buy Now</a>
+            <a href="#" class="btn-action">Add to Cart</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 VOID APPAREL. EMBRACE THE MINIMAL.</p>
+</footer>
+
+<script>
+
+/* Scroll Animation */
+const images=document.querySelectorAll('.photo-square');
+const texts=document.querySelectorAll('.product-info');
+
+const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('active');
+        }else{
+            entry.target.classList.remove('active');
+        }
+    });
+},{threshold:0.3});
+
+images.forEach(el=>observer.observe(el));
+texts.forEach(el=>observer.observe(el));
+
+/* Hamburger */
+const hamburger=document.getElementById('hamburger');
+const navMenu=document.getElementById('navMenu');
+
+hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+document.querySelectorAll('#navMenu a').forEach(link=>{
+    link.addEventListener('click',()=>{
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+</script>
+
+</body>
+</html>

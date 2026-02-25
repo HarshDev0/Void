@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOID | Products</title>
+
+<link rel="icon" href="Favicon/icons8-products-24.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ---------- GLOBAL ---------- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Helvetica Neue', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+/* ---------- HEADER ---------- */
+header{
+    background:#000;
+    padding:1rem 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-family:'Poppins', sans-serif;
+    font-size:1.6rem;
+    font-weight:700;
+    letter-spacing:4px;
+    color:#fff;
+    text-decoration:none;
+}
+
+nav{
+    display:flex;
+    gap:2rem;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    position:relative;
+    padding-bottom:4px;
+}
+
+nav a::after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:1px;
+    left:0;
+    bottom:0;
+    background:#fff;
+    transition:0.3s ease;
+}
+
+nav a:hover::after,
+nav a.active::after{
+    width:100%;
+}
+
+.cart-icon img{
+    width:20px;
+}
+
+/* ---------- HAMBURGER ---------- */
+.hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
+
+.hamburger span{
+    width:25px;
+    height:2px;
+    background:#fff;
+    transition:0.3s ease;
+}
+
+.hamburger.active span:nth-child(1){
+    transform:rotate(45deg) translate(5px,5px);
+}
+.hamburger.active span:nth-child(2){
+    opacity:0;
+}
+.hamburger.active span:nth-child(3){
+    transform:rotate(-45deg) translate(5px,-5px);
+}
+
+/* ---------- PRODUCT SECTIONS ---------- */
+.product-section{
+    min-height:100vh;
+    padding:8rem 8%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5rem;
+    flex-wrap:wrap;
+
+    opacity:0;
+    transform:translateY(120px);
+    transition:opacity 1s ease, transform 1s cubic-bezier(.17,.67,.35,1);
+}
+
+.product-section.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* COLORS */
+.white{ background:#ffffff; }
+.lightgrey{ background:#e5e5e5; }
+.grey{ background:#8c8c8c; color:#fff; }
+.lightdark{ background:#2a2a2a; color:#fff; }
+.dark{ background:#141414; color:#fff; }
+
+/* ---------- COLLAGE (FIXED SQUARE) ---------- */
+.collage{
+    position:relative;
+    width:320px;
+    height:320px; /* square container */
+}
+
+.collage img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border:2px solid #000;
+    transition:0.4s ease;
+}
+
+.grey .collage img,
+.lightdark .collage img,
+.dark .collage img{
+    border:2px solid #fff;
+}
+
+/* stacking */
+.collage img:nth-child(1){
+    top:60px;
+    left:0;
+    z-index:1;
+}
+
+.collage img:nth-child(2){
+    top:30px;
+    left:20px;
+    z-index:2;
+}
+
+.collage img:nth-child(3){
+    top:0;
+    left:40px;
+    z-index:3;
+}
+
+.collage img:hover{
+    transform:scale(1.05);
+}
+
+/* ---------- TEXT ---------- */
+.product-info{
+    max-width:500px;
+}
+
+.product-info h2{
+    font-family:'Poppins', sans-serif;
+    font-size:2.6rem;
+    margin-bottom:1.5rem;
+}
+
+.product-info p{
+    margin-bottom:2rem;
+    opacity:0.85;
+}
+
+.btn{
+    display:inline-block;
+    padding:1rem 2rem;
+    text-decoration:none;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    border:1px solid currentColor;
+    transition:0.3s ease;
+}
+
+.white .btn,
+.lightgrey .btn{
+    background:#000;
+    color:#fff;
+}
+
+.white .btn:hover,
+.lightgrey .btn:hover{
+    background:transparent;
+    color:#000;
+}
+
+.grey .btn,
+.lightdark .btn,
+.dark .btn{
+    background:#fff;
+    color:#000;
+}
+
+.grey .btn:hover,
+.lightdark .btn:hover,
+.dark .btn:hover{
+    background:transparent;
+    color:#fff;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    background:#000;
+    color:#fff;
+    text-align:center;
+    padding:3rem 1rem;
+    border-top:1px solid #333;
+}
+
+footer p{
+    font-size:0.8rem;
+    opacity:0.6;
+    letter-spacing:1px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+
+    nav{
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#000;
+        flex-direction:column;
+        align-items:center;
+        gap:2rem;
+        padding:2rem 0;
+        transform:translateY(-120%);
+        transition:0.4s ease;
+    }
+
+    nav.active{
+        transform:translateY(0);
+    }
+
+    .hamburger{
+        display:flex;
+    }
+
+    .product-section{
+        flex-direction:column;
+        padding:5rem 6%;
+        text-align:center;
+    }
+
+    .collage{
+        width:260px;
+        height:260px; /* square on mobile */
+    }
+
+    .product-info h2{
+        font-size:2rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">VOID</a>
+
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-icon">
+            <img src="images/icons8-shopping-cart-30.png" alt="Cart">
+        </a>
+    </nav>
+
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</header>
+
+<!-- HOODIES -->
+<section class="product-section white">
+    <div class="collage">
+        <img src="images/hood1.png">
+        <img src="images/hood2.png">
+        <img src="images/hood3.png">
+    </div>
+    <div class="product-info">
+        <h2>Hoodies</h2>
+        <p>Explore our hand-painted cybersigilised hoodies — bold expressions crafted with precision and individuality.</p>
+        <a href="hoodie.html" class="btn">Explore Hoodies</a>
+    </div>
+</section>
+
+<!-- JEANS -->
+<section class="product-section lightgrey">
+    <div class="collage">
+        <img src="images/Lower.png">
+        <img src="images/lower2.png">
+        <img src="images/lower3.png">
+    </div>
+    <div class="product-info">
+        <h2>Jeans</h2>
+        <p>Discover handcrafted cybersigilised jeans merging raw street aesthetics with contemporary minimalism.</p>
+        <a href="jeans.html" class="btn">Explore Jeans</a>
+    </div>
+</section>
+
+<!-- SHIRTS -->
+<section class="product-section grey">
+    <div class="collage">
+        <img src="images/shirt.png">
+        <img src="images/shirt2.png">
+        <img src="images/shirt3.png">
+    </div>
+    <div class="product-info">
+        <h2>Shirts</h2>
+        <p>Statement shirts featuring individually painted cybersigil patterns — controlled artistry in wearable form.</p>
+        <a href="shirts.html" class="btn">Explore Shirts</a>
+    </div>
+</section>
+
+<!-- TIES -->
+<section class="product-section lightdark">
+    <div class="collage">
+        <img src="images/tie.png">
+        <img src="images/tie2.png">
+        <img src="images/tie3.png">
+    </div>
+    <div class="product-info">
+        <h2>Ties</h2>
+        <p>Minimal yet striking cybersigilised ties crafted to elevate formal expression with subtle digital mysticism.</p>
+        <a href="ties.html" class="btn">Explore Ties</a>
+    </div>
+</section>
+
+<!-- CAPS -->
+<section class="product-section dark">
+    <div class="collage">
+        <img src="images/cap.png">
+        <img src="images/cap2.png">
+        <img src="images/cap3.png">
+    </div>
+    <div class="product-info">
+        <h2>Caps</h2>
+        <p>Hand-painted cybersigil caps designed for statement layering — understated yet powerfully expressive.</p>
+        <a href="caps.html" class="btn">Explore Caps</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 VOID APPAREL. EMBRACE THE MINIMAL.</p>
+</footer>
+
+<script>
+
+/* Scroll Animation */
+const sections = document.querySelectorAll('.product-section');
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('active');
+        }else{
+            entry.target.classList.remove('active');
+        }
+    });
+},{threshold:0.25});
+sections.forEach(section=>observer.observe(section));
+
+/* Hamburger */
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+
+hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+document.querySelectorAll('#navMenu a').forEach(link=>{
+    link.addEventListener('click',()=>{
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+</script>
+
+</body>
+</html>

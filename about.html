@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOID | About Us</title>
+
+<link rel="icon" href="Favicon/icons8-about-48.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ---------- GLOBAL ---------- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Helvetica Neue', sans-serif;
+    background:#fff;
+    color:#000;
+    line-height:1.7;
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+}
+
+/* ---------- HEADER ---------- */
+header{
+    background:#000;
+    padding:1rem 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-family:'Poppins', sans-serif;
+    font-size:1.6rem;
+    font-weight:700;
+    letter-spacing:4px;
+    color:#fff;
+    text-decoration:none;
+}
+
+nav{
+    display:flex;
+    gap:2rem;
+    align-items:center;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    position:relative;
+    padding-bottom:4px;
+}
+
+nav a::after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:1px;
+    left:0;
+    bottom:0;
+    background:#fff;
+    transition:0.3s ease;
+}
+
+nav a:hover::after,
+nav a.active::after{
+    width:100%;
+}
+
+/* Cart Icon */
+.cart-icon img{
+    width:20px;
+}
+
+/* ---------- HAMBURGER ---------- */
+.hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
+
+.hamburger span{
+    width:25px;
+    height:2px;
+    background:#fff;
+    transition:0.3s ease;
+}
+
+.hamburger.active span:nth-child(1){
+    transform:rotate(45deg) translate(5px,5px);
+}
+.hamburger.active span:nth-child(2){
+    opacity:0;
+}
+.hamburger.active span:nth-child(3){
+    transform:rotate(-45deg) translate(5px,-5px);
+}
+
+/* ---------- SECTIONS ---------- */
+.about-section{
+    min-height:100vh;
+    padding:8rem 10%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:left;
+
+    background-attachment:fixed;
+    background-size:cover;
+    background-position:center;
+
+    opacity:0;
+    transform:translateY(120px);
+    transition:opacity 1s ease, transform 1s cubic-bezier(.17,.67,.35,1);
+}
+
+.about-section.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.white{ background:#ffffff; color:#000; }
+.grey{ background:linear-gradient(180deg,#8c8c8c,#7a7a7a); color:#fff; }
+.dark{ background:linear-gradient(180deg,#1a1a1a,#111); color:#fff; }
+
+.about-section h2{
+    font-family:'Poppins', sans-serif;
+    font-size:2.8rem;
+    margin-bottom:2rem;
+}
+
+.about-section p{
+    max-width:900px;
+    font-size:1.05rem;
+    opacity:0.9;
+}
+
+/* ---------- FAQ ---------- */
+.faq-container{
+    width:100%;
+    max-width:1200px;
+    margin-top:3rem;
+}
+
+.faq-item{
+    border-bottom:1px solid rgba(255,255,255,0.2);
+    padding:1.2rem 0;
+    cursor:pointer;
+}
+
+.faq-question{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'Poppins', sans-serif;
+    font-size:1.1rem;
+}
+
+.faq-question span{
+    transition:transform 0.3s ease;
+}
+
+.faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.4s ease;
+    opacity:0.85;
+    font-size:0.95rem;
+    margin-top:0.8rem;
+}
+
+.faq-item.active .faq-answer{
+    max-height:200px;
+}
+
+.faq-item.active .faq-question span{
+    transform:rotate(45deg);
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    background:#000;
+    color:#fff;
+    text-align:center;
+    padding:3rem 1rem;
+    border-top:1px solid #333;
+}
+
+footer p{
+    font-size:0.8rem;
+    opacity:0.6;
+    letter-spacing:1px;
+}
+
+/* ---------- MOBILE ---------- */
+@media(max-width:768px){
+
+    nav{
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#000;
+        flex-direction:column;
+        align-items:center;
+        gap:2rem;
+        padding:2rem 0;
+        transform:translateY(-120%);
+        transition:0.4s ease;
+    }
+
+    nav.active{
+        transform:translateY(0);
+    }
+
+    .hamburger{
+        display:flex;
+    }
+
+    .about-section{
+        padding:5rem 6%;
+        text-align:center;
+        background-attachment:scroll;
+    }
+
+    .about-section h2{
+        font-size:2rem;
+    }
+
+    .about-section p{
+        font-size:0.95rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">VOID</a>
+
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html" class="active">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-icon">
+            <img src="images/icons8-shopping-cart-30.png" alt="Cart">
+        </a>
+    </nav>
+
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</header>
+
+<section class="about-section white">
+    <h2>Who Are We?</h2>
+    <p>
+        VOID is a new independent startup redefining expression through hand-painted cybersigilised apparel.
+        We create uniquely crafted shirts, hoodies, trousers, hats and ties — each individually painted
+        to merge digital mysticism with refined minimalism.
+        Every piece is wearable art designed to speak without noise.
+    </p>
+</section>
+
+<section class="about-section grey">
+    <h2>Why Choose Us?</h2>
+    <p>
+        No brand in India currently delivers authentic handcrafted cybersigilised garments with true artistic integrity.
+        VOID stands as the first to introduce this movement locally.
+        We focus on originality, exclusivity, and controlled creation — not mass production.
+    </p>
+</section>
+
+<section class="about-section dark">
+    <h2>FAQs</h2>
+
+    <div class="faq-container">
+
+        <div class="faq-item">
+            <div class="faq-question">What is your shipping time? <span>+</span></div>
+            <div class="faq-answer">
+                Orders are processed within 2-4 business days. Delivery across India takes 5-8 working days depending on your location.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How is the product quality? <span>+</span></div>
+            <div class="faq-answer">
+                We use premium fabric bases and durable painting techniques to ensure longevity, comfort and precision detailing.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Do you ship internationally? <span>+</span></div>
+            <div class="faq-answer">
+                Currently we serve customers across India. International shipping will be introduced soon.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Is each piece handmade? <span>+</span></div>
+            <div class="faq-answer">
+                Yes. Every cybersigilised article is individually hand-painted, making each product slightly unique.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How can I contact support? <span>+</span></div>
+            <div class="faq-answer">
+                You can reach us through the Contact page. Our support team replies within 24–48 hours.
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 VOID APPAREL. EMBRACE THE MINIMAL.</p>
+</footer>
+
+<script>
+
+/* Scroll Animation */
+const sections = document.querySelectorAll('.about-section');
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('active');
+        } else {
+            entry.target.classList.remove('active');
+        }
+    });
+},{threshold:0.25});
+sections.forEach(section=>observer.observe(section));
+
+/* FAQ Accordion */
+document.querySelectorAll('.faq-item').forEach(item=>{
+    item.addEventListener('click',()=>{
+        item.classList.toggle('active');
+    });
+});
+
+/* Hamburger */
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+
+hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+document.querySelectorAll('#navMenu a').forEach(link=>{
+    link.addEventListener('click',()=>{
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+</script>
+
+</body>
+</html>

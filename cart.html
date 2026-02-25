@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOID | Cart</title>
+<link rel="icon" href="images/icons8-shopping-cart-30.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ---------- GLOBAL ---------- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Helvetica Neue', sans-serif;
+    background:#fff;
+    color:#000;
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+/* ---------- HEADER ---------- */
+header{
+    background:#000;
+    padding:1rem 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-family:'Poppins', sans-serif;
+    font-size:1.6rem;
+    font-weight:700;
+    letter-spacing:4px;
+    color:#fff;
+    text-decoration:none;
+}
+
+nav{
+    display:flex;
+    gap:2rem;
+    align-items:center;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    position:relative;
+    padding-bottom:4px;
+}
+
+nav a::after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:1px;
+    left:0;
+    bottom:0;
+    background:#fff;
+    transition:0.3s ease;
+}
+
+nav a:hover::after,
+nav a.active::after{
+    width:100%;
+}
+
+/* CART ICON */
+.cart-icon img{
+    width:20px;
+}
+
+/* ---------- HAMBURGER ---------- */
+.hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
+
+.hamburger span{
+    width:25px;
+    height:2px;
+    background:#fff;
+    transition:0.3s ease;
+}
+
+.hamburger.active span:nth-child(1){
+    transform:rotate(45deg) translate(5px,5px);
+}
+.hamburger.active span:nth-child(2){
+    opacity:0;
+}
+.hamburger.active span:nth-child(3){
+    transform:rotate(-45deg) translate(5px,-5px);
+}
+
+/* ---------- CART SECTION ---------- */
+.cart-section{
+    min-height:80vh;
+    padding:6rem 10%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.cart-container{
+    width:100%;
+    max-width:1000px;
+    display:flex;
+    gap:4rem;
+    flex-wrap:wrap;
+}
+
+/* LEFT SIDE (Empty State) */
+.cart-empty{
+    flex:2;
+}
+
+.cart-empty h2{
+    font-family:'Poppins', sans-serif;
+    font-size:2.5rem;
+    margin-bottom:1.5rem;
+}
+
+.cart-empty p{
+    opacity:0.8;
+    margin-bottom:2rem;
+}
+
+.btn{
+    display:inline-block;
+    padding:1rem 2rem;
+    background:#000;
+    color:#fff;
+    text-decoration:none;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:0.8rem;
+    border:1px solid #000;
+    transition:0.3s ease;
+}
+
+.btn:hover{
+    background:#fff;
+    color:#000;
+}
+
+/* RIGHT SIDE (Summary Box) */
+.cart-summary{
+    flex:1;
+    border:1px solid #e0e0e0;
+    padding:2rem;
+}
+
+.cart-summary h3{
+    font-family:'Poppins', sans-serif;
+    margin-bottom:1.5rem;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:1rem;
+    opacity:0.8;
+}
+
+.summary-total{
+    display:flex;
+    justify-content:space-between;
+    font-weight:600;
+    margin-top:1.5rem;
+    padding-top:1rem;
+    border-top:1px solid #ddd;
+}
+
+.checkout-btn{
+    width:100%;
+    margin-top:2rem;
+    padding:1rem;
+    background:#000;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    transition:0.3s ease;
+}
+
+.checkout-btn:hover{
+    background:#333;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    background:#000;
+    color:#fff;
+    text-align:center;
+    padding:3rem 1rem;
+    border-top:1px solid #333;
+}
+
+footer p{
+    font-size:0.8rem;
+    opacity:0.6;
+    letter-spacing:1px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+
+    nav{
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#000;
+        flex-direction:column;
+        align-items:center;
+        gap:2rem;
+        padding:2rem 0;
+        transform:translateY(-120%);
+        transition:0.4s ease;
+    }
+
+    nav.active{
+        transform:translateY(0);
+    }
+
+    .hamburger{
+        display:flex;
+    }
+
+    .cart-container{
+        flex-direction:column;
+    }
+
+    .cart-empty h2{
+        font-size:2rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">VOID</a>
+
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="active cart-icon">
+            <img src="images/icons8-shopping-cart-30.png" alt="Cart">
+        </a>
+    </nav>
+
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</header>
+
+<section class="cart-section">
+    <div class="cart-container">
+
+        <!-- LEFT -->
+        <div class="cart-empty">
+            <h2>Your Cart</h2>
+            <p>Your cart is currently empty. Start exploring our cybersigilised collections and add your favorites.</p>
+            <a href="products.html" class="btn">Continue Shopping</a>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="cart-summary">
+            <h3>Order Summary</h3>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>$0.00</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span>Calculated at checkout</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span>$0.00</span>
+            </div>
+
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 VOID APPAREL. EMBRACE THE MINIMAL.</p>
+</footer>
+
+<script>
+
+const hamburger=document.getElementById('hamburger');
+const navMenu=document.getElementById('navMenu');
+
+hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+document.querySelectorAll('#navMenu a').forEach(link=>{
+    link.addEventListener('click',()=>{
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+</script>
+
+</body>
+</html>
